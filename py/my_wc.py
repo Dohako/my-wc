@@ -7,17 +7,23 @@ parser = argparse.ArgumentParser(description='Count the number of bytes in a fil
 # Add the file path argument
 parser.add_argument('file', type=str, help='Path to the file')
 
+parser.add_argument('-c', help='Count the number of bytes in the file', action='store_true')
+
+parser.add_argument('-l', help='Count the number of lines in the file', action='store_true')
+
 # Parse the arguments
 args = parser.parse_args()
 
 # Read the file and count the bytes
 try:
     # stat way
-    file_stats = os.stat(args.file)
-    # straightforward way
-    # with open(args.file, 'rb') as file:
-    #     byte_count = len(file.read())
-    #     print("Number of bytes in the file:", byte_count)
+    if args.c or (not args.l and not args.c):
+        print(f"Number of bytes in the file: {args.file} ", os.stat(args.file).st_size)
+    if args.l:
+        # straightforward way
+        with open(args.file, 'r', encoding="utf-8") as file:
+            lines = file.readlines()
+            print(f"Number of lines in the file: {args.file} ", len(lines))
 except FileNotFoundError:
     print("File not found:", args.file)
 except IOError:
