@@ -21,3 +21,15 @@ python my_wc.py -c test.txt
 ```bash
 python my_wc.py -l test.txt
 ```
+
+### Words count
+```bash
+python my_wc.py -w test.txt
+```
+
+### Characters count
+```bash
+python my_wc.py -m test.txt
+```
+#### Note
+This metric depends on locale and result can differ depending on locale that is set.
